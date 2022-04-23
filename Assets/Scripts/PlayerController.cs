@@ -2,17 +2,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // variables
     [SerializeField] private float moveSpeed = 50f;
     [SerializeField] private bool isTurning = false;
     [SerializeField] private Vector2 movement;
-    [SerializeField] private Rigidbody2D rigidbody2d;
-    [SerializeField] private Animator animator;
+
+    // components
+    private Rigidbody2D rigidbody2d;
+    private Animator animator;
+
+    // scripts
+    private ProjectileManager projectileManager;
 
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        projectileManager = GetComponent<ProjectileManager>();
     }
 
     void Update()
