@@ -30,7 +30,7 @@ public class CameraShake : MonoBehaviour
         while(time <= shakeDuration)
         {
             transform.position = initialPosition + (Vector3)Random.insideUnitCircle * shakeMagnitude;
-            transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 2f));
+            transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 2f)+ initialRotation.z);
             time += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
