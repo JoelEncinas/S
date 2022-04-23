@@ -12,9 +12,11 @@ public class ProjectileManager : MonoBehaviour
     [SerializeField] private GameObject projectile;
     private Transform playerTransform;
 
-    private void Start()
+    IEnumerator Start()
     {
         playerTransform = GetComponent<Transform>();
+        yield return new WaitForSeconds(0.5f);
+
         AutoShoot();
     }
 
