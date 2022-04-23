@@ -192,8 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9b41e52da7d02488e83b19a14835d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 1.5
-  shakeMagnitude: 0.5
+  shakeDuration: 1
+  shakeMagnitude: 0.1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
