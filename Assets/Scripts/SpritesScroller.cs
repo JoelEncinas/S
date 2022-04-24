@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class SpritesScroller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Vector2 moveSpeed;
+
+    Vector2 offset;
+    Material material;
+
+    private void Awake()
     {
-        
+        material = GetComponent<SpriteRenderer>().material;
+        moveSpeed = new Vector2(0, 0.001f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        material.mainTextureOffset += moveSpeed;
     }
 }
