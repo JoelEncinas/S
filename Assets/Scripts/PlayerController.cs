@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // variables
-    [SerializeField] private float moveSpeed = 50f;
+    [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool isTurning = false;
     [SerializeField] private Vector2 movement;
 
@@ -14,13 +14,19 @@ public class PlayerController : MonoBehaviour
     // scripts
     private ProjectileManager projectileManager;
 
+    // Screen bounds
+    Vector2 minBounds;
+    Vector2 maxBounds;
+
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         projectileManager = GetComponent<ProjectileManager>();
+        InitBounds();
     }
+
 
     void Update()
     {
@@ -40,7 +46,22 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // movement
-        rigidbody2d.MovePosition(rigidbody2d.position + movement * moveSpeed * Time.fixedDeltaTime);
+        Move();
+    }
+
+    private void InitBounds()
+    {
+        Camera mainCamera = Camera.main;
+        minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
+        maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
+    }
+
+    private void Move()     
+    {
+        Vector2 newPos = new Vector2();
+        newPos.x = Mathf.Clamp(transform.position.x + movement.x, minBounds.x, maxBounds.x);
+        newPos.y = Mathf.Clamp(transform.position.y + movement.y, minBounds.y, maxBounds.y);
+
+        rigidbody2d.MovePosition(newPos + movement * moveSpeed * Time.fixedDeltaTime);
     }
 }
