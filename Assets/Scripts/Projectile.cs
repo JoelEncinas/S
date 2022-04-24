@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     // variables
-    private float velocity = 300f;
+    [SerializeField] private float velocity = 600f;
 
     // components
     private Rigidbody2D rigidbody2d;

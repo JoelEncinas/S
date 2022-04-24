@@ -6,7 +6,8 @@ public class ProjectileManager : MonoBehaviour
 {
     // variables
     [SerializeField] private Vector3 shootPosition;
-    [SerializeField] private Vector3 shootPositionOffset = new Vector3(0, 0.5f, 0); 
+    [SerializeField] private Vector3 shootPositionOffset = new Vector3(0, 0.5f, 0);
+    [SerializeField] private float fireRate = 0.5f;
 
     // components
     [SerializeField] private GameObject projectile;
@@ -15,7 +16,7 @@ public class ProjectileManager : MonoBehaviour
     IEnumerator Start()
     {
         playerTransform = GetComponent<Transform>();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(fireRate);
 
         AutoShoot();
     }
@@ -40,7 +41,7 @@ public class ProjectileManager : MonoBehaviour
             projectile.SetActive(true);
         }
         
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(fireRate);
         StartCoroutine(IAutoShoot());
     }
 }

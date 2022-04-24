@@ -3,12 +3,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // variables
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private bool isTurning = false;
     [SerializeField] private Vector2 movement;
 
     // components
-    private Rigidbody2D rigidbody2d;
     private Animator animator;
 
     // scripts
@@ -17,11 +16,11 @@ public class PlayerController : MonoBehaviour
     // Screen bounds
     Vector2 minBounds;
     Vector2 maxBounds;
-
+    [SerializeField] float paddingX = 0.5f;
+    [SerializeField] float paddingY = 0.5f;
 
     void Start()
     {
-        rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         projectileManager = GetComponent<ProjectileManager>();
         InitBounds();
@@ -30,18 +29,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // input
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-
-        animator.SetFloat("Horizontal", movement.x);
-
-        if (movement.x == 0)
-            isTurning = false;
-        else
-            isTurning = true;
-
-        animator.SetBool("IsTurning", isTurning);
+        GetInput();
+        AnimateShipTurns();
     }
 
     private void FixedUpdate()
@@ -58,10 +47,31 @@ public class PlayerController : MonoBehaviour
 
     private void Move()     
     {
+        Vector2 delta = movement * moveSpeed * Time.deltaTime;
         Vector2 newPos = new Vector2();
-        newPos.x = Mathf.Clamp(transform.position.x + movement.x, minBounds.x, maxBounds.x);
-        newPos.y = Mathf.Clamp(transform.position.y + movement.y, minBounds.y, maxBounds.y);
+        newPos.x = Mathf.Clamp(transform.position.x + delta.x, minBounds.x + paddingX, maxBounds.x - paddingX);
+        newPos.y = Mathf.Clamp(transform.position.y + delta.y, minBounds.y + paddingY, maxBounds.y - paddingY);
 
-        rigidbody2d.MovePosition(newPos + movement * moveSpeed * Time.fixedDeltaTime);
+
+        transform.position = newPos;
+    }
+
+    private void GetInput()
+    {
+        // input
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+    }
+
+    private void AnimateShipTurns()
+    {
+        animator.SetFloat("Horizontal", movement.x);
+
+        if (movement.x == 0)
+            isTurning = false;
+        else
+            isTurning = true;
+
+        animator.SetBool("IsTurning", isTurning);
     }
 }
