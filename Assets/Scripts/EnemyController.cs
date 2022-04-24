@@ -9,11 +9,6 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         var step = moveSpeed * Time.deltaTime; // calculate distance to move
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(0, -5f), step);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        gameObject.SetActive(false);
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(0, -12f), step);
     }
 }
