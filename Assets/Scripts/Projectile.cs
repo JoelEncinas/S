@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name.Contains("enemy1"))
+        if (collision.name.Contains("Enemy"))
         {
             collision.gameObject.SetActive(false);
             // add points
