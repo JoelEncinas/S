@@ -21,6 +21,10 @@ public class EnemyController : MonoBehaviour
     private void MoveTowardsPlayer()
     {
         var step = moveSpeed * Time.deltaTime; // calculate distance to move
-        transform.position = Vector2.MoveTowards(transform.position, player.position, step);
+        transform.position = Vector2.MoveTowards(
+            transform.position
+            , new Vector2(player.position.x, player.position.y - 4f)
+            , step);
+
     }
 }

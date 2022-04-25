@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     // components
     private Rigidbody2D rigidbody2d;
 
-    void Start()
+    private void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
