@@ -14,8 +14,6 @@ public class CameraShake : MonoBehaviour
     {
         initialPosition = transform.position;
         initialRotation = transform.rotation;
-        // Play(); 
-        // activate for cam shake
     }
 
     public void Play()
