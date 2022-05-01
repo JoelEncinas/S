@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
@@ -9,7 +8,7 @@ public class CameraShake : MonoBehaviour
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
-    private bool shakeRunning = false;
+    Coroutine shakeRunning;
 
     void Start()
     {
@@ -19,14 +18,13 @@ public class CameraShake : MonoBehaviour
 
     public void Play()
     { 
-        if(shakeRunning)
+        if(shakeRunning == null)
             StopCoroutine(Shake());
-        StartCoroutine(Shake());
+        shakeRunning = StartCoroutine(Shake());
     }
 
     IEnumerator Shake()
     {
-        shakeRunning = true;
         float time = 0f;
         
         while(time <= shakeDuration)
@@ -39,6 +37,5 @@ public class CameraShake : MonoBehaviour
 
         transform.position = initialPosition;
         transform.rotation = initialRotation;
-        shakeRunning = false;
     }
 }
