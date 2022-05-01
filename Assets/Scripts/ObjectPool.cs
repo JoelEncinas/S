@@ -5,9 +5,12 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool sharedInstance;
-    [SerializeField] private List<GameObject> pooledObjects;
-    [SerializeField] private GameObject objectToPool;
+    [SerializeField] private List<GameObject> pooledPlayerProjectiles;
+    [SerializeField] private List<GameObject> pooledEnemyProjectiles;
+    [SerializeField] private GameObject playerProjectile;
+    [SerializeField] private GameObject enemyProjectile;
     private int amountToPool = 20;
+    private string cloneString = "(Clone)";
 
     private void Awake()
     {
@@ -24,24 +27,40 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
-        pooledObjects = new List<GameObject>();
-        GameObject tmp;
-        for(int i = 0; i < amountToPool; i++)
-        {
-            tmp = Instantiate(objectToPool);
-            tmp.SetActive(false);
-            pooledObjects.Add(tmp);
-        }
+        pooledPlayerProjectiles = new List<GameObject>();
+        pooledEnemyProjectiles = new List<GameObject>();
+        AddToPool(pooledPlayerProjectiles, playerProjectile);
+        AddToPool(pooledEnemyProjectiles, enemyProjectile);
     }
 
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(string poolname)
     {
         for(int i = 0; i < amountToPool; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
-                return pooledObjects[i];
+            if (poolname == "pooledPlayerProjectiles")
+            {
+                if (!pooledPlayerProjectiles[i].activeInHierarchy)
+                    return pooledPlayerProjectiles[i];
+            }
+            if (poolname == "pooledEnemyProjectiles")
+            {
+                if (!pooledEnemyProjectiles[i].activeInHierarchy)
+                    return pooledEnemyProjectiles[i];
+            }
         }
 
         return null;
+    }
+
+    public void AddToPool(List<GameObject> pool, GameObject objectToPool)
+    {
+        GameObject tmp;
+
+        for (int i = 0; i < amountToPool; i++)
+        {
+            tmp = Instantiate(objectToPool);
+            tmp.SetActive(false);
+            pool.Add(tmp);
+        }
     }
 }

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5890180583671949991}
   - component: {fileID: 5890180583671949988}
   - component: {fileID: 5890180583671950009}
-  - component: {fileID: 5890180583671950011}
   - component: {fileID: 5890180583671950008}
   - component: {fileID: 5890180583671949990}
   - component: {fileID: 5504932951502103501}
+  - component: {fileID: 5890180583671950011}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -104,22 +104,6 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   paddingX: 0.5
   paddingY: 0.5
---- !u!114 &5890180583671950011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5890180583671949989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf04345b2e174b47a7bb6ff56a4200d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootPosition: {x: 0, y: 0, z: 0}
-  shootPositionOffset: {x: 0, y: 0.5, z: 0}
-  fireRate: 0.5
-  projectile: {fileID: 1568950219450672885, guid: 6c6db123d8dbe594d91cc5358f16acca, type: 3}
 --- !u!95 &5890180583671950008
 Animator:
   serializedVersion: 3
@@ -178,3 +162,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+--- !u!114 &5890180583671950011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5890180583671949989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf04345b2e174b47a7bb6ff56a4200d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootPosition: {x: 0, y: 0, z: 0}
+  shootPositionOffset: {x: 0, y: 1, z: 0}
+  fireRate: 0.5
+  projectile: {fileID: 0}

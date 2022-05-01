@@ -37,6 +37,6 @@ public class Pathfinding : MonoBehaviour
                 waypointIndex++;
         }
         else
-            Destroy(gameObject); // change to pool
+            gameObject.SetActive(false);
     }
 }
