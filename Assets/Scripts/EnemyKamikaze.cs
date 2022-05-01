@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyKamikaze : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float step;
-    [SerializeField] private float endOfGame = -12f;
+    [SerializeField] private float endOfGame = -20f;
+    [SerializeField] private float playerOffsetY = 4f;
+    [SerializeField] private float lastPlayerPosition;
 
     Transform player;
 
@@ -20,7 +22,10 @@ public class EnemyKamikaze : MonoBehaviour
         step = moveSpeed * Time.deltaTime; // calculate distance to move
 
         if (transform.position.y > player.transform.position.y)
+        {
             MoveTowardsPlayer();
+            lastPlayerPosition = player.transform.position.x;
+        }
         else
             MoveDown();
     }
@@ -29,7 +34,7 @@ public class EnemyKamikaze : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(
             transform.position,
-            new Vector2(player.position.x, player.position.y),
+            new Vector2(player.position.x, player.position.y - playerOffsetY),
             step);
     }
 
@@ -37,7 +42,7 @@ public class EnemyKamikaze : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(
             transform.position,
-            new Vector2(transform.position.x, endOfGame),
+            new Vector2(lastPlayerPosition, endOfGame),
             step);
     }
 }
