@@ -11,6 +11,8 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        if (gameObject.name.Contains("Enemy")) 
+            velocity = -velocity;
     }
 
     private void FixedUpdate()
