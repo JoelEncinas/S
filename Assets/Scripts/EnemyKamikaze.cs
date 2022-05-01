@@ -12,20 +12,24 @@ public class EnemyKamikaze : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<Transform>();
+        if(GameObject.Find("Player") != null)
+            player = GameObject.Find("Player").GetComponent<Transform>();
     }
 
     private void Update()
     {
-        step = moveSpeed * Time.deltaTime; // calculate distance to move
-
-        if (transform.position.y > player.transform.position.y)
+        if(player != null)
         {
-            MoveTowardsPlayer();
-            lastPlayerPosition = player.transform.position.x;
+            step = moveSpeed * Time.deltaTime; // calculate distance to move
+
+            if (transform.position.y > player.transform.position.y)
+            {
+                MoveTowardsPlayer();
+                lastPlayerPosition = player.transform.position.x;
+            }
+            else
+                MoveDown();
         }
-        else
-            MoveDown();
     }
 
     private void MoveTowardsPlayer()

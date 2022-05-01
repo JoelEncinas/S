@@ -17,13 +17,4 @@ public class Projectile : MonoBehaviour
     {
         rigidbody2d.velocity = new Vector2(0, velocity * Time.fixedDeltaTime);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.name.Contains("Enemy"))
-        {
-            collision.gameObject.SetActive(false);
-            // add points
-        }
-    }
 }

@@ -6,7 +6,7 @@ public class ProjectileManager : MonoBehaviour
 {
     // variables
     [SerializeField] private Vector3 shootPosition;
-    [SerializeField] private Vector3 shootPositionOffset = new Vector3(0, 0.5f, 0);
+    [SerializeField] private Vector3 shootPositionOffset = new Vector3(0, 1f, 0);
     [SerializeField] private float fireRate = 0.5f;
 
     // components
