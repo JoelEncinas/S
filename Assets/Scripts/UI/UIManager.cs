@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < healthObjects.Count; i++)
                 healthObjects[i].gameObject.SetActive(false);
         }
-        else
+        if(damage == 1)
         {
             healthObjects[health - counter].gameObject.SetActive(false);
             counter++;

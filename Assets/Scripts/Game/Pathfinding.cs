@@ -37,6 +37,9 @@ public class Pathfinding : MonoBehaviour
                 waypointIndex++;
         }
         else
-            gameObject.SetActive(false);
+        {
+            if(!gameObject.name.Contains("Boss"))
+                gameObject.SetActive(false);
+        }
     }
 }
