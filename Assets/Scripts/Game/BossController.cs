@@ -10,8 +10,15 @@ public class BossController : MonoBehaviour
     [SerializeField] private bool isTracking;
     [SerializeField] private bool isLocked;
     [SerializeField] private float focusSpeed = 20f;
-    List<GameObject> lasers;
     Vector2 focusInitialPosition;
+
+    // lasers
+    List<GameObject> lasers;
+    List<Color32> laserColors;
+    private int laserColorCounter;
+    Vector2 laserLeftInitialPosition;
+    Vector2 laserRightInitialPosition;
+
     private List<string> attacks;
 
     // Components
@@ -63,6 +70,7 @@ public class BossController : MonoBehaviour
             GameObject.Find("BossLaserSpawnerRight")
         };
         DisableLasers();
+        CreateLaserColors();
     }
 
     private void LoadAttacks()
@@ -83,6 +91,8 @@ public class BossController : MonoBehaviour
 
         yield return new WaitForSeconds(spawnTime);
         focusInitialPosition = focus.transform.position;
+        laserLeftInitialPosition = lasers[0].transform.position;
+        laserRightInitialPosition = lasers[1].transform.position;
 
         while (health > 0)
         {
@@ -131,7 +141,7 @@ public class BossController : MonoBehaviour
         isTracking = false;
         isLocked = false;
         focus.SetActive(false);
-        DisableLasers();
+        ResetLasers();
     }
 
     private void FocusPlayer(Vector2 playerPosition)
@@ -148,18 +158,58 @@ public class BossController : MonoBehaviour
             focusColor.color = Color.green;
     }
 
+    private void ResetLasers()
+    {
+        lasers[0].SetActive(false);
+        lasers[1].SetActive(false);
+
+        lasers[0].transform.position = laserLeftInitialPosition;
+        lasers[1].transform.position = laserRightInitialPosition;
+    }
+
     private void DisableLasers()
     {
-        for(int i = 0; i < lasers.Count; i++)
-        {
-            lasers[i].SetActive(false);
-        }
+        lasers[0].SetActive(false);
+        lasers[1].SetActive(false);
     }
 
     private void EnableRandomLaser()
     {
         int randomLaser = Random.Range(0, lasers.Count);
+        int randomColor;
+        int laserAttack = Random.Range(0, 2);
+
+        do
+        {
+            randomColor = Random.Range(0, laserColors.Count);
+        } while (randomColor == laserColorCounter);
+
+        laserColorCounter = randomColor;
+        Debug.Log(randomColor + " " + laserColorCounter);
+        
         lasers[randomLaser].SetActive(true);
-        lasers[randomLaser].transform.position = focus.transform.position;
+        lasers[randomLaser].GetComponent<SpriteRenderer>().color = laserColors[randomColor];
+
+        switch (laserAttack)
+        {
+            case 0:
+                lasers[randomLaser].transform.position = focus.transform.position;
+                break;
+            case 1:
+                lasers[randomLaser].transform.right = focus.transform.position - lasers[randomLaser].transform.position;
+                break;
+        }
+    }
+
+    private void CreateLaserColors()
+    {
+        laserColorCounter = 0;
+        laserColors = new List<Color32>
+        {
+            new Color32(255, 121, 48, 255),
+            new Color32(255, 219, 162, 255),
+            new Color32(97, 211, 227, 255),
+            new Color32(113, 227, 146, 255)
+        };
     }
 }
