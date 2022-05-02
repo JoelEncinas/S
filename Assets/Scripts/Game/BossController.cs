@@ -7,6 +7,7 @@ public class BossController : MonoBehaviour
     // variables
     private float spawnTime = 3f;
     [SerializeField] private float trackAttack = 5f;
+    [SerializeField] private float spawnDroidsAttack = 5f; 
     [SerializeField] private bool isTracking;
     [SerializeField] private bool isLocked;
     [SerializeField] private float focusSpeed = 20f;
@@ -15,8 +16,8 @@ public class BossController : MonoBehaviour
     // lasers
     List<GameObject> lasers;
     List<Color32> laserColors;
-    private int laserColorCounter;
-    private int lastLaserCounter;
+    [SerializeField] private int laserColorCounter;
+    [SerializeField] private int laserAttack;
     Vector2 laserLeftInitialPosition;
     Vector2 laserRightInitialPosition;
 
@@ -32,6 +33,7 @@ public class BossController : MonoBehaviour
 
     // Attacks DB
     private string attack1 = "TrackPlayer";
+    private string attack2 = "SpawnDroids";
 
     private void Awake()
     {
@@ -77,6 +79,7 @@ public class BossController : MonoBehaviour
     private void LoadAttacks()
     {
         attacks.Add(attack1);
+        attacks.Add(attack2);
     }
 
     // Engage with player
@@ -113,24 +116,33 @@ public class BossController : MonoBehaviour
                 StartCoroutine(TrackPlayer());
                 return trackAttack;
 
-            // TODO more attacks
+            case 1:
+                StartCoroutine(SpawnDroids());
+                return spawnDroidsAttack;
         }
 
         return 0f;
+    }
+
+    IEnumerator SpawnDroids()
+    {
+        // Attack time 5f
+        // instantiate droids
+        yield return new WaitForSeconds(2f);
+
     }
 
     // Attacks
     IEnumerator TrackPlayer()
     {
         // Attack time 5f
-
         isTracking = true;
         focus.SetActive(true);
         yield return new WaitForSeconds(2f);
 
         isTracking = false;
         isLocked = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
         focus.SetActive(false);
 
         EnableRandomLaser();
@@ -166,6 +178,8 @@ public class BossController : MonoBehaviour
 
         lasers[0].transform.position = laserLeftInitialPosition;
         lasers[1].transform.position = laserRightInitialPosition;
+        lasers[0].transform.rotation = Quaternion.identity;
+        lasers[0].transform.rotation = Quaternion.identity;
     }
 
     private void DisableLasers()
@@ -178,7 +192,6 @@ public class BossController : MonoBehaviour
     {
         int randomLaser = Random.Range(0, lasers.Count);
         int randomColor;
-        int laserAttack;
 
         do
         {
@@ -187,12 +200,10 @@ public class BossController : MonoBehaviour
 
         laserColorCounter = randomColor;
 
-        do
-        {
-            laserAttack = Random.Range(0, 2);
-        } while (laserAttack == lastLaserCounter);
-
-        lastLaserCounter = laserAttack;
+        if (laserAttack == 1)
+            laserAttack = 0;
+        else
+            laserAttack = 1;
         
         lasers[randomLaser].SetActive(true);
         lasers[randomLaser].GetComponent<SpriteRenderer>().color = laserColors[randomColor];
