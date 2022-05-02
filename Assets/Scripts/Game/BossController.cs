@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // UI
+
+    // Components
+    GameObject focus;
+
+    private void Awake()
+    {
+        SetupUI();
+    }
+
     void Start()
+    {
+        focus.SetActive(false);
+    }
+
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetupUI()
     {
-        
+        focus = GameObject.Find("Focus");
     }
 }

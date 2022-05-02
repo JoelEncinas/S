@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<WaveConfigSO> waveConfigs;
     [SerializeField] float timeBetweenWaves = 3f;
     WaveConfigSO currentWave;
-    bool isLooping = true;
+    bool isLooping = false;
 
     void Start()
     {

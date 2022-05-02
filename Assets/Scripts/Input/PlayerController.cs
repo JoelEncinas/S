@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,9 +7,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private bool isTurning = false;
     [SerializeField] private Vector2 movement;
+    public bool isImmune;
+    float immuneTime;
 
     // components
     private Animator animator;
+    private BoxCollider2D boxCollider2D;
+    private SpriteRenderer spriteRenderer;
 
     // scripts
     private ProjectileManager projectileManager;
@@ -19,13 +24,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float paddingX = 0.5f;
     [SerializeField] float paddingY = 0.5f;
 
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
         projectileManager = GetComponent<ProjectileManager>();
-        InitBounds();
+        boxCollider2D = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        isImmune = false;
+        immuneTime = 5f;
     }
 
+    private void Start()
+    {
+        InitBounds();
+    }
 
     void Update()
     {
@@ -74,4 +87,47 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("IsTurning", isTurning);
     }
+
+    IEnumerator MakePlayerImmune()
+    {
+        IImmuneAnimation();
+        boxCollider2D.enabled = false;
+        isImmune = true;
+
+        yield return new WaitForSeconds(immuneTime);
+
+        isImmune = false;
+        boxCollider2D.enabled = true;
+    }
+
+    IEnumerator ImmuneAnimation()
+    {
+        float timer = 0;
+
+        do
+        {
+            spriteRenderer.color = new Color32(255, 255, 255, 100);
+            yield return new WaitForSeconds(0.25f);
+            spriteRenderer.color = new Color32(255, 255, 255, 255);
+            yield return new WaitForSeconds(0.25f);
+            timer += 0.5f;
+        } while (timer <= immuneTime);
+    }
+
+    public void IMakePlayerImmune()
+    {
+        StartCoroutine(MakePlayerImmune());
+    }
+
+    public void IImmuneAnimation()
+    {
+        StartCoroutine(ImmuneAnimation());
+    }
+
+    public bool isPlayerImmune()
+    {
+        return isImmune;
+    }
+
+    
 }
