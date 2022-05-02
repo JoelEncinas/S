@@ -12,6 +12,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private bool isLocked;
     [SerializeField] private float focusSpeed = 20f;
     Vector2 focusInitialPosition;
+    private List<string> attacks;
 
     // lasers
     List<GameObject> lasers;
@@ -21,7 +22,11 @@ public class BossController : MonoBehaviour
     Vector2 laserLeftInitialPosition;
     Vector2 laserRightInitialPosition;
 
-    private List<string> attacks;
+    // Spawn droids
+    [SerializeField] private GameObject pathContainer;
+    [SerializeField] private List<Transform> pathsList;
+    [SerializeField] private GameObject droid;
+    int randomPath;
 
     // Components
     [SerializeField] private GameObject focus;
@@ -63,22 +68,36 @@ public class BossController : MonoBehaviour
 
     private void SetupBoss()
     {
-        focus = GameObject.Find("Focus");
-        focusColor = focus.GetComponent<SpriteRenderer>();
+        // components
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         health = GetComponent<Health>().health;
+
+        // focus
+        focus = GameObject.Find("Focus");
+        focusColor = focus.GetComponent<SpriteRenderer>();
+
+        // paths
+        pathContainer = GameObject.Find("AddPaths");
+        pathsList = new List<Transform>();
+        AddPaths();
+        droid = GameObject.Find("Enemy_boss1_add");
+        droid.GetComponent<GravityPull>().enabled = false;
+        droid.SetActive(false);
+
+        // lasers
         lasers = new List<GameObject>
         {
             GameObject.Find("BossLaserSpawnerLeft"),
             GameObject.Find("BossLaserSpawnerRight")
         };
+
         DisableLasers();
         CreateLaserColors();
     }
 
     private void LoadAttacks()
     {
-        attacks.Add(attack1);
+        // attacks.Add(attack1);
         attacks.Add(attack2);
     }
 
@@ -102,6 +121,7 @@ public class BossController : MonoBehaviour
         {
             randomAttack = Random.Range(0, attacks.Count);
             timeUntilNextAttack = DoRandomAttack(randomAttack);
+            Debug.Log(attacks[randomAttack]);
 
             yield return new WaitForSeconds(timeUntilNextAttack);
             ResetTrackPlayer();
@@ -112,24 +132,16 @@ public class BossController : MonoBehaviour
     {
         switch (randomAttack)
         {
-            case 0:
+            case 1:
                 StartCoroutine(TrackPlayer());
                 return trackAttack;
 
-            case 1:
+            case 0:
                 StartCoroutine(SpawnDroids());
                 return spawnDroidsAttack;
         }
 
         return 0f;
-    }
-
-    IEnumerator SpawnDroids()
-    {
-        // Attack time 5f
-        // instantiate droids
-        yield return new WaitForSeconds(2f);
-
     }
 
     // Attacks
@@ -142,7 +154,7 @@ public class BossController : MonoBehaviour
 
         isTracking = false;
         isLocked = true;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.35f);
         focus.SetActive(false);
 
         EnableRandomLaser();
@@ -229,5 +241,36 @@ public class BossController : MonoBehaviour
             new Color32(97, 211, 227, 255),
             new Color32(113, 227, 146, 255)
         };
+    }
+
+    IEnumerator SpawnDroids()
+    {
+        // Spawn time 5f
+        randomPath = Random.Range(0, pathsList.Count);
+        droid.SetActive(true);
+        droid.GetComponent<GravityPull>().enabled = true;
+        droid.transform.position = pathsList[randomPath].transform.GetChild(0).transform.position;
+
+        yield return new WaitForSeconds(5f);
+    }
+
+    private void AddPaths()
+    {
+        for (int i = 0; i < pathContainer.transform.childCount; i++)
+        {
+            pathsList.Add(pathContainer.transform.GetChild(i));
+        }
+    }
+
+    public List<Transform> GetCurrentPath()
+    {
+        List<Transform> waypoints = new List<Transform>();
+
+        for (int i = 0; i < pathsList[randomPath].childCount; i++)
+        {
+            waypoints.Add(pathsList[randomPath].transform.GetChild(i));
+        }
+
+        return waypoints;
     }
 }

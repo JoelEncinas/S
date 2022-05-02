@@ -7,14 +7,19 @@ public class GravityPull : MonoBehaviour
     public bool isPullActive = false;
     public bool isAttackActive = true;
     PlayerController player;
+    BossController bossController;
+    List<Transform> waypoints;
+    [SerializeField] private float addMoveSpeed = 5f;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
+        bossController = GameObject.Find("Boss1(Clone)").GetComponent<BossController>();
     }
 
     IEnumerator Start()
     {
+        waypoints = bossController.GetCurrentPath();
         bool gravitySwitch = false;
 
         while (isAttackActive)
@@ -38,9 +43,12 @@ public class GravityPull : MonoBehaviour
     void Update()
     {
         if (isPullActive && Vector3.Distance(transform.position, player.transform.position) <= 4)
-            player.moveSpeed = 4f;
+            player.moveSpeed = 3f;
         else
             player.moveSpeed = 7.5f;
+
+        FollowPath();
+        Debug.Log(waypoints.Count);
     }
 
     IEnumerator ActivatePull()
@@ -67,5 +75,26 @@ public class GravityPull : MonoBehaviour
         }
 
         isPullActive = false;
+    }
+
+
+    private void FollowPath()
+    {
+        int waypointIndex = 0;
+        waypoints = bossController.GetCurrentPath();
+        transform.position = waypoints[waypointIndex].position;
+
+        if (waypointIndex < waypoints.Count)
+        {
+            Vector3 targetPosition = waypoints[waypointIndex].position;
+            float delta = addMoveSpeed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, delta);
+            if (transform.position == targetPosition)
+                waypointIndex++;
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
