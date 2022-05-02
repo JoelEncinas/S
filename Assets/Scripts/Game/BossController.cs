@@ -16,6 +16,7 @@ public class BossController : MonoBehaviour
     List<GameObject> lasers;
     List<Color32> laserColors;
     private int laserColorCounter;
+    private int lastLaserCounter;
     Vector2 laserLeftInitialPosition;
     Vector2 laserRightInitialPosition;
 
@@ -177,7 +178,7 @@ public class BossController : MonoBehaviour
     {
         int randomLaser = Random.Range(0, lasers.Count);
         int randomColor;
-        int laserAttack = Random.Range(0, 2);
+        int laserAttack;
 
         do
         {
@@ -185,7 +186,13 @@ public class BossController : MonoBehaviour
         } while (randomColor == laserColorCounter);
 
         laserColorCounter = randomColor;
-        Debug.Log(randomColor + " " + laserColorCounter);
+
+        do
+        {
+            laserAttack = Random.Range(0, 2);
+        } while (laserAttack == lastLaserCounter);
+
+        lastLaserCounter = laserAttack;
         
         lasers[randomLaser].SetActive(true);
         lasers[randomLaser].GetComponent<SpriteRenderer>().color = laserColors[randomColor];
