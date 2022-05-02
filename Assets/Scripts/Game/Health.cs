@@ -46,6 +46,13 @@ public class Health : MonoBehaviour
         {
             PlayerHit(damageDealer.GetDamage());
         }
+
+        if (damageDealer != null)
+        {
+            TakeDamage(damageDealer.GetDamage());
+            if (!collision.gameObject.name.Contains("Boss"))
+                damageDealer.Destroy();
+        }
     }
 
     void TakeDamage(int damage)
