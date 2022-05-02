@@ -35,6 +35,19 @@ public class Health : MonoBehaviour
         }
     }
 
+    // TODO: it only triggers if player moves
+    // possible solution, make it so bosses only appear when player can't be immune
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        DamageDealer damageDealer = collision.GetComponent<DamageDealer>();
+
+        if (collision.gameObject.name.Contains("Enemy")
+            || collision.gameObject.name.Contains("Boss"))
+        {
+            PlayerHit(damageDealer.GetDamage());
+        }
+    }
+
     void TakeDamage(int damage)
     {
         health -= damage;
