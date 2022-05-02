@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // variables
-    [SerializeField] private float moveSpeed = 7.5f;
+    public float moveSpeed = 7.5f;
     [SerializeField] private bool isTurning = false;
     [SerializeField] private Vector2 movement;
     public bool isImmune;

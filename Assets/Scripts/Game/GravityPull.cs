@@ -4,30 +4,68 @@ using UnityEngine;
 
 public class GravityPull : MonoBehaviour
 {
-    // Start is called before the first frame update
-    IEnumerator Start()
-    {
-        StartCoroutine(ActivatePull());
+    public bool isPullActive = false;
+    public bool isAttackActive = true;
+    PlayerController player;
 
+    private void Awake()
+    {
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
+    IEnumerator Start()
+    {
+        bool gravitySwitch = false;
+
+        while (isAttackActive)
+        {
+            if (gravitySwitch)
+            {
+                StartCoroutine(ActivatePull());
+                gravitySwitch = !gravitySwitch;
+                yield return new WaitForSeconds(3f);
+            }
+
+            else
+            {
+                StartCoroutine(DeactivatePull());
+                gravitySwitch = !gravitySwitch;
+                yield return new WaitForSeconds(6f);
+            }
+        }
+    }
+
     void Update()
     {
-        
+        if (isPullActive && Vector3.Distance(transform.position, player.transform.position) <= 4)
+            player.moveSpeed = 4f;
+        else
+            player.moveSpeed = 7.5f;
     }
 
     IEnumerator ActivatePull()
     {
         Vector3 scale = new Vector3(2, 2, 2);
 
-        Debug.Log(Vector3.Distance(transform.localScale, scale));
-        Debug.Log(transform.localScale * 1.2f);
-        Debug.Log(Vector3.Distance(transform.localScale * 1.2f, scale));
-
         while(Vector3.Distance(transform.localScale, scale) >= 1)
         {
+            yield return new WaitForSeconds(0.05f);
             transform.localScale *= 1.05f;
         }
+
+        isPullActive = true;
+    }
+
+    IEnumerator DeactivatePull()
+    {
+        Vector3 scale = new Vector3(1.5f, 1.5f, 1.5f);
+
+        while (Vector3.Distance(transform.localScale, scale) <= 1)
+        {
+            yield return new WaitForSeconds(0.05f);
+            transform.localScale *= 0.95f;
+        }
+
+        isPullActive = false;
     }
 }
