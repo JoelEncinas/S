@@ -9,7 +9,8 @@ public class GravityPull : MonoBehaviour
     PlayerController player;
     BossController bossController;
     List<Transform> waypoints;
-    [SerializeField] private float addMoveSpeed = 5f;
+    int waypointIndex = 0;
+    [SerializeField] private float addMoveSpeed = 1f;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class GravityPull : MonoBehaviour
     IEnumerator Start()
     {
         waypoints = bossController.GetCurrentPath();
+        transform.position = waypoints[waypointIndex].position;
         bool gravitySwitch = false;
 
         while (isAttackActive)
@@ -48,7 +50,6 @@ public class GravityPull : MonoBehaviour
             player.moveSpeed = 7.5f;
 
         FollowPath();
-        Debug.Log(waypoints.Count);
     }
 
     IEnumerator ActivatePull()
@@ -80,9 +81,7 @@ public class GravityPull : MonoBehaviour
 
     private void FollowPath()
     {
-        int waypointIndex = 0;
         waypoints = bossController.GetCurrentPath();
-        transform.position = waypoints[waypointIndex].position;
 
         if (waypointIndex < waypoints.Count)
         {

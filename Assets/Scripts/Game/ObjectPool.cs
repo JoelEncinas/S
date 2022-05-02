@@ -10,7 +10,6 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject playerProjectile;
     [SerializeField] private GameObject enemyProjectile;
     private int amountToPool = 20;
-    private string cloneString = "(Clone)";
 
     private void Awake()
     {
@@ -21,8 +20,6 @@ public class ObjectPool : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

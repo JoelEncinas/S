@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         {
             healthObjects[health - counter].gameObject.SetActive(false);
             counter++;
-        }
+        } 
     }
 }
 

@@ -845,6 +845,10 @@ PrefabInstance:
       value: Enemy_boss1_add
       objectReference: {fileID: 0}
     - target: {fileID: 5283072195394001388, guid: 2beb0801daf91684f8967af61d229f61, type: 3}
+      propertyPath: addMoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283072195394001388, guid: 2beb0801daf91684f8967af61d229f61, type: 3}
       propertyPath: isAttackActive
       value: 1
       objectReference: {fileID: 0}

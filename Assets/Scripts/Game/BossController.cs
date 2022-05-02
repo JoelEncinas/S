@@ -7,7 +7,6 @@ public class BossController : MonoBehaviour
     // variables
     private float spawnTime = 3f;
     [SerializeField] private float trackAttack = 5f;
-    [SerializeField] private float spawnDroidsAttack = 5f; 
     [SerializeField] private bool isTracking;
     [SerializeField] private bool isLocked;
     [SerializeField] private float focusSpeed = 20f;
@@ -27,6 +26,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private List<Transform> pathsList;
     [SerializeField] private GameObject droid;
     int randomPath;
+    bool isDroidActive = true;
 
     // Components
     [SerializeField] private GameObject focus;
@@ -38,7 +38,6 @@ public class BossController : MonoBehaviour
 
     // Attacks DB
     private string attack1 = "TrackPlayer";
-    private string attack2 = "SpawnDroids";
 
     private void Awake()
     {
@@ -80,6 +79,8 @@ public class BossController : MonoBehaviour
         pathContainer = GameObject.Find("AddPaths");
         pathsList = new List<Transform>();
         AddPaths();
+
+        // droid
         droid = GameObject.Find("Enemy_boss1_add");
         droid.GetComponent<GravityPull>().enabled = false;
         droid.SetActive(false);
@@ -97,8 +98,7 @@ public class BossController : MonoBehaviour
 
     private void LoadAttacks()
     {
-        // attacks.Add(attack1);
-        attacks.Add(attack2);
+        attacks.Add(attack1);
     }
 
     // Engage with player
@@ -109,6 +109,7 @@ public class BossController : MonoBehaviour
 
     IEnumerator Engage()
     {
+        Debug.Log("Engage");    
         int randomAttack;
         float timeUntilNextAttack;
 
@@ -126,19 +127,21 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(timeUntilNextAttack);
             ResetTrackPlayer();
         }
+
+        while (isDroidActive)
+        {
+            StartCoroutine(SpawnDroids());
+            yield return new WaitForSeconds(20f);
+        }
     }
 
     private float DoRandomAttack(int randomAttack)
     {
         switch (randomAttack)
         {
-            case 1:
+            case 0:
                 StartCoroutine(TrackPlayer());
                 return trackAttack;
-
-            case 0:
-                StartCoroutine(SpawnDroids());
-                return spawnDroidsAttack;
         }
 
         return 0f;
@@ -245,13 +248,13 @@ public class BossController : MonoBehaviour
 
     IEnumerator SpawnDroids()
     {
-        // Spawn time 5f
+        // Time to travel all points +- 20f
         randomPath = Random.Range(0, pathsList.Count);
         droid.SetActive(true);
         droid.GetComponent<GravityPull>().enabled = true;
         droid.transform.position = pathsList[randomPath].transform.GetChild(0).transform.position;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(0f);
     }
 
     private void AddPaths()
