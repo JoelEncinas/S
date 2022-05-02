@@ -11,11 +11,13 @@ public class GravityPull : MonoBehaviour
     List<Transform> waypoints;
     int waypointIndex = 0;
     [SerializeField] private float addMoveSpeed = 1f;
+    Health health;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         bossController = GameObject.Find("Boss1(Clone)").GetComponent<BossController>();
+        health = GetComponent<Health>();
     }
 
     IEnumerator Start()
@@ -23,6 +25,7 @@ public class GravityPull : MonoBehaviour
         waypoints = bossController.GetCurrentPath();
         transform.position = waypoints[waypointIndex].position;
         bool gravitySwitch = false;
+        
 
         while (isAttackActive)
         {
@@ -30,14 +33,14 @@ public class GravityPull : MonoBehaviour
             {
                 StartCoroutine(ActivatePull());
                 gravitySwitch = !gravitySwitch;
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(2f);
             }
 
             else
             {
                 StartCoroutine(DeactivatePull());
                 gravitySwitch = !gravitySwitch;
-                yield return new WaitForSeconds(6f);
+                yield return new WaitForSeconds(3f);
             }
         }
     }
@@ -45,11 +48,14 @@ public class GravityPull : MonoBehaviour
     void Update()
     {
         if (isPullActive && Vector3.Distance(transform.position, player.transform.position) <= 4)
-            player.moveSpeed = 3f;
+            player.moveSpeed = 3.5f;
         else
             player.moveSpeed = 7.5f;
 
         FollowPath();
+
+        // regen hp
+        health.health = 999;
     }
 
     IEnumerator ActivatePull()
@@ -93,7 +99,7 @@ public class GravityPull : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);
+            waypointIndex = 0;
         }
     }
 }

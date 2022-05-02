@@ -247,7 +247,6 @@ public class BossController : MonoBehaviour
         droid.SetActive(true);
         droid.GetComponent<GravityPull>().enabled = true;
         randomPath = Random.Range(0, pathsList.Count);
-        droid.GetComponent<Health>().health = 3;
         droid.transform.position = pathsList[randomPath].transform.GetChild(0).transform.position;
 
         yield return new WaitForSeconds(0f);
@@ -255,11 +254,10 @@ public class BossController : MonoBehaviour
 
     IEnumerator SpawnDroidsWrapper()
     {
-        Debug.Log("droid");
         while (isDroidActive)
         {
             StartCoroutine(SpawnDroids());
-            yield return new WaitForSeconds(20f);
+            yield return new WaitForSeconds(30f);
         }
     }
 
