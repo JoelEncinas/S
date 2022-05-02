@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: 599a82d23af2ee34e88922978be985c8
+guid: 0a73ea1ef143f234fab71787e8546af2
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -2022488606043682357
-    second: Basic_projectile1
-  - first:
-      213: -2185405125072673077
-    second: Basic_projectile2
-  - first:
-      213: 7169383963647783442
-    second: Basic_projectile4
-  - first:
-      213: 8541580466747308492
-    second: Basic_projectile3
-  - first:
-      213: -5621227687244635633
-    second: Focus
-  - first:
-      213: -4714940385238239379
-    second: Boss_Laser1
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -59,7 +41,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -131,112 +113,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Basic_projectile1
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 75
-        width: 1
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc9cd72145daee3e0800000000000000
-      internalID: -2022488606043682357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Basic_projectile2
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 74
-        width: 1
-        height: 2
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc6a9b51e91eba1e0800000000000000
-      internalID: -2185405125072673077
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Basic_projectile4
-      rect:
-        serializedVersion: 2
-        x: 27
-        y: 74
-        width: 2
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 212bb9bdab4ce7360800000000000000
-      internalID: 7169383963647783442
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Basic_projectile3
-      rect:
-        serializedVersion: 2
-        x: 19
-        y: 74
-        width: 1
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc973e4ed2ac98670800000000000000
-      internalID: 8541580466747308492
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Focus
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 42
-        width: 5
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f02613473336df1b0800000000000000
-      internalID: -5621227687244635633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
