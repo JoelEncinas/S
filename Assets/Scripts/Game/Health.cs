@@ -61,7 +61,6 @@ public class Health : MonoBehaviour
 
         if (health <= 0)
         {
-            Debug.Log(gameObject.name);
             if (gameObject.name.Contains("Player"))
                 SceneManagerScript.ResetGame();
             gameObject.SetActive(false);

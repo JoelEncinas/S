@@ -63,6 +63,9 @@ public class BossController : MonoBehaviour
             FocusPlayer(player.transform.position);
 
         LockPlayer();
+
+        if(!droid.activeSelf)
+            droid.GetComponent<GravityPull>().enabled = false;
     }
 
     private void SetupBoss()
@@ -82,7 +85,6 @@ public class BossController : MonoBehaviour
 
         // droid
         droid = GameObject.Find("Enemy_boss1_add");
-        droid.GetComponent<GravityPull>().enabled = false;
         droid.SetActive(false);
 
         // lasers
@@ -104,12 +106,12 @@ public class BossController : MonoBehaviour
     // Engage with player
     private void IEnagage()
     {
+        StartCoroutine(SpawnDroidsWrapper());
         StartCoroutine(Engage());
     }
 
     IEnumerator Engage()
     {
-        Debug.Log("Engage");    
         int randomAttack;
         float timeUntilNextAttack;
 
@@ -122,16 +124,9 @@ public class BossController : MonoBehaviour
         {
             randomAttack = Random.Range(0, attacks.Count);
             timeUntilNextAttack = DoRandomAttack(randomAttack);
-            Debug.Log(attacks[randomAttack]);
 
             yield return new WaitForSeconds(timeUntilNextAttack);
             ResetTrackPlayer();
-        }
-
-        while (isDroidActive)
-        {
-            StartCoroutine(SpawnDroids());
-            yield return new WaitForSeconds(20f);
         }
     }
 
@@ -249,12 +244,23 @@ public class BossController : MonoBehaviour
     IEnumerator SpawnDroids()
     {
         // Time to travel all points +- 20f
-        randomPath = Random.Range(0, pathsList.Count);
         droid.SetActive(true);
         droid.GetComponent<GravityPull>().enabled = true;
+        randomPath = Random.Range(0, pathsList.Count);
+        droid.GetComponent<Health>().health = 3;
         droid.transform.position = pathsList[randomPath].transform.GetChild(0).transform.position;
 
         yield return new WaitForSeconds(0f);
+    }
+
+    IEnumerator SpawnDroidsWrapper()
+    {
+        Debug.Log("droid");
+        while (isDroidActive)
+        {
+            StartCoroutine(SpawnDroids());
+            yield return new WaitForSeconds(20f);
+        }
     }
 
     private void AddPaths()
