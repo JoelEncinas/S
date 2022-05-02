@@ -12,12 +12,14 @@ public class GravityPull : MonoBehaviour
     int waypointIndex = 0;
     [SerializeField] private float addMoveSpeed = 1f;
     Health health;
+    SpriteRenderer forceField;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         bossController = GameObject.Find("Boss1(Clone)").GetComponent<BossController>();
         health = GetComponent<Health>();
+        forceField = GameObject.Find("FieldForce").GetComponent<SpriteRenderer>();
     }
 
     IEnumerator Start()
@@ -32,6 +34,7 @@ public class GravityPull : MonoBehaviour
             if (gravitySwitch)
             {
                 StartCoroutine(ActivatePull());
+                EnableField();
                 gravitySwitch = !gravitySwitch;
                 yield return new WaitForSeconds(2f);
             }
@@ -39,6 +42,7 @@ public class GravityPull : MonoBehaviour
             else
             {
                 StartCoroutine(DeactivatePull());
+                DisableField();
                 gravitySwitch = !gravitySwitch;
                 yield return new WaitForSeconds(3f);
             }
@@ -84,7 +88,6 @@ public class GravityPull : MonoBehaviour
         isPullActive = false;
     }
 
-
     private void FollowPath()
     {
         waypoints = bossController.GetCurrentPath();
@@ -101,5 +104,14 @@ public class GravityPull : MonoBehaviour
         {
             waypointIndex = 0;
         }
+    }
+    private void EnableField() 
+    {
+        forceField.color = new Color32(243, 97, 255, 50);
+    }
+
+    private void DisableField()
+    {
+        forceField.color = new Color32(243, 97, 255, 0);
     }
 }

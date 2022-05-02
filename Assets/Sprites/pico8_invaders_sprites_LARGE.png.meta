@@ -5,6 +5,9 @@ TextureImporter:
   - first:
       213: 5484112813005365746
     second: Heart
+  - first:
+      213: 5775197789783523982
+    second: ForceField
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -126,7 +129,7 @@ TextureImporter:
         width: 8
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,6 +137,27 @@ TextureImporter:
       bones: []
       spriteID: 2f16a5f1c8b7b1c40800000000000000
       internalID: 5484112813005365746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForceField
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 88
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e820baf9acf952050800000000000000
+      internalID: 5775197789783523982
       vertices: []
       indices: 
       edges: []
