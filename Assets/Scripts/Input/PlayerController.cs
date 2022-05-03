@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         Vector2 delta = movement * moveSpeed * Time.deltaTime;
         Vector2 newPos = new Vector2();
         newPos.x = Mathf.Clamp(transform.position.x + delta.x, minBounds.x + paddingX, maxBounds.x - paddingX);
-        newPos.y = Mathf.Clamp(transform.position.y + delta.y, minBounds.y + paddingY, maxBounds.y - paddingY);
+        newPos.y = Mathf.Clamp(transform.position.y + delta.y, minBounds.y + paddingY * 6, maxBounds.y - paddingY);
 
 
         transform.position = newPos;

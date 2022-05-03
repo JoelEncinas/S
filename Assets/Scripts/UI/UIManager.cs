@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
         playerHealth = GameObject.Find("Player").GetComponent<Health>();
         healthContainer = GameObject.Find("HealthContainer").GetComponent<Transform>();
 
-        health = playerHealth.health;
+        health = playerHealth.GetHealth();
         counter = 1;
         healthObjects = new List<Transform>();
         GetHealthObjects();

@@ -59,7 +59,7 @@ public class GravityPull : MonoBehaviour
         FollowPath();
 
         // regen hp
-        health.health = 999;
+        health.SetHealth(999);
     }
 
     IEnumerator ActivatePull()

@@ -16,10 +16,11 @@ public class BossController : MonoBehaviour
     // lasers
     List<GameObject> lasers;
     List<Color32> laserColors;
-    [SerializeField] private int laserColorCounter;
     [SerializeField] private int laserAttack;
     Vector2 laserLeftInitialPosition;
     Vector2 laserRightInitialPosition;
+    [SerializeField] private List<SpriteRenderer> orbs;
+    [SerializeField] private GameObject orbsGO;
 
     // Spawn droids
     [SerializeField] private GameObject pathContainer;
@@ -31,7 +32,8 @@ public class BossController : MonoBehaviour
     // Components
     [SerializeField] private GameObject focus;
     SpriteRenderer focusColor;
-    int health;
+    Health health;
+    int healthValue;
 
     // Gameobjects
     PlayerController player;
@@ -63,13 +65,16 @@ public class BossController : MonoBehaviour
             FocusPlayer(player.transform.position);
 
         LockPlayer();
+
+        healthValue = health.GetHealth();
+        DisableOrbs();
     }
 
     private void SetupBoss()
     {
         // components
         player = GameObject.Find("Player").GetComponent<PlayerController>();
-        health = GetComponent<Health>().health;
+        health = GetComponent<Health>();
 
         // focus
         focus = GameObject.Find("Focus");
@@ -90,6 +95,10 @@ public class BossController : MonoBehaviour
             GameObject.Find("BossLaserSpawnerLeft"),
             GameObject.Find("BossLaserSpawnerRight")
         };
+
+        // orbs
+        orbsGO = GameObject.Find("Orbs");
+        GetAllOrbs();
 
         DisableLasers();
         CreateLaserColors();
@@ -117,7 +126,7 @@ public class BossController : MonoBehaviour
         laserLeftInitialPosition = lasers[0].transform.position;
         laserRightInitialPosition = lasers[1].transform.position;
 
-        while (health > 0)
+        while (healthValue > 0)
         {
             randomAttack = Random.Range(0, attacks.Count);
             timeUntilNextAttack = DoRandomAttack(randomAttack);
@@ -201,12 +210,7 @@ public class BossController : MonoBehaviour
         int randomLaser = Random.Range(0, lasers.Count);
         int randomColor;
 
-        do
-        {
-            randomColor = Random.Range(0, laserColors.Count);
-        } while (randomColor == laserColorCounter);
-
-        laserColorCounter = randomColor;
+        randomColor = Random.Range(0, GetColorBasedOffHealth());
 
         if (laserAttack == 1)
             laserAttack = 0;
@@ -229,13 +233,12 @@ public class BossController : MonoBehaviour
 
     private void CreateLaserColors()
     {
-        laserColorCounter = 0;
         laserColors = new List<Color32>
         {
-            new Color32(255, 121, 48, 255),
-            new Color32(255, 219, 162, 255),
-            new Color32(97, 211, 227, 255),
-            new Color32(113, 227, 146, 255)
+            new Color32(255, 121, 48, 255), // orange
+            new Color32(255, 219, 162, 255), // yellow
+            new Color32(97, 211, 227, 255), // blue
+            new Color32(113, 227, 146, 255) // green
         };
     }
 
@@ -266,5 +269,36 @@ public class BossController : MonoBehaviour
         }
 
         return waypoints;
+    }
+
+    private int GetColorBasedOffHealth()
+    {
+        if (healthValue >= 120)
+            return 4;
+        if (healthValue >= 80 && healthValue < 120)
+            return 3;
+        if (healthValue >= 40 && healthValue < 80)
+            return 2;
+        if (healthValue >= 0 && healthValue < 40)
+            return 1;
+
+        return 0;
+    }
+
+    private void DisableOrbs()
+    {
+        if (healthValue < 120)
+            orbs[3].color = new Color32(1, 1, 1, 0);
+        if (healthValue < 80)
+            orbs[2].color = new Color32(1, 1, 1, 0);
+        if (healthValue < 40)
+            orbs[1].color = new Color32(1, 1, 1, 0);
+    }
+
+    private void GetAllOrbs()
+    {
+        orbs = new List<SpriteRenderer>();
+        for(int i = 0; i < 4; i++)
+            orbs.Add(orbsGO.transform.GetChild(i).GetComponent<SpriteRenderer>());
     }
 }

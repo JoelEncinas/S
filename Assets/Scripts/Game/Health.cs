@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int health = 3;
+    [SerializeField] private int health = 3;
     CameraShake cameraShake;
     UIManager uIManager;
     PlayerController player;
@@ -57,7 +57,7 @@ public class Health : MonoBehaviour
 
     void TakeDamage(int damage)
     {
-        health -= damage;
+        SetHealth(GetHealth() - damage);
 
         if (health <= 0)
         {
@@ -73,5 +73,15 @@ public class Health : MonoBehaviour
         player.IMakePlayerImmune();
         if (health > 0)
             uIManager.LoseHealth(damage);
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public void SetHealth(int newHealth)
+    {
+        health = newHealth;
     }
 }
