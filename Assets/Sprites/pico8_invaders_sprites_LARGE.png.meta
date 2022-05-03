@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: 5775197789783523982
     second: ForceField
+  - first:
+      213: 2533137402189477160
+    second: UI
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -150,7 +153,7 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -158,6 +161,27 @@ TextureImporter:
       bones: []
       spriteID: e820baf9acf952050800000000000000
       internalID: 5775197789783523982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 128
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82572c0db03872320800000000000000
+      internalID: 2533137402189477160
       vertices: []
       indices: 
       edges: []

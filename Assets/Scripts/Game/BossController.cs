@@ -293,6 +293,8 @@ public class BossController : MonoBehaviour
             orbs[2].color = new Color32(1, 1, 1, 0);
         if (healthValue < 40)
             orbs[1].color = new Color32(1, 1, 1, 0);
+        if (healthValue < 10)
+            orbs[0].color = new Color32(1, 1, 1, 0);
     }
 
     private void GetAllOrbs()
