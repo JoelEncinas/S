@@ -63,9 +63,6 @@ public class BossController : MonoBehaviour
             FocusPlayer(player.transform.position);
 
         LockPlayer();
-
-        if(!droid.activeSelf)
-            droid.GetComponent<GravityPull>().enabled = false;
     }
 
     private void SetupBoss()
@@ -106,7 +103,7 @@ public class BossController : MonoBehaviour
     // Engage with player
     private void IEnagage()
     {
-        StartCoroutine(SpawnDroidsWrapper());
+        SpawnDroid();
         StartCoroutine(Engage());
     }
 
@@ -126,6 +123,7 @@ public class BossController : MonoBehaviour
             timeUntilNextAttack = DoRandomAttack(randomAttack);
 
             yield return new WaitForSeconds(timeUntilNextAttack);
+            randomPath = Random.Range(0, pathsList.Count);
             ResetTrackPlayer();
         }
     }
@@ -241,24 +239,13 @@ public class BossController : MonoBehaviour
         };
     }
 
-    IEnumerator SpawnDroids()
+    void SpawnDroid()
     {
         // Time to travel all points +- 20f
         droid.SetActive(true);
         droid.GetComponent<GravityPull>().enabled = true;
         randomPath = Random.Range(0, pathsList.Count);
         droid.transform.position = pathsList[randomPath].transform.GetChild(0).transform.position;
-
-        yield return new WaitForSeconds(0f);
-    }
-
-    IEnumerator SpawnDroidsWrapper()
-    {
-        while (isDroidActive)
-        {
-            StartCoroutine(SpawnDroids());
-            yield return new WaitForSeconds(30f);
-        }
     }
 
     private void AddPaths()

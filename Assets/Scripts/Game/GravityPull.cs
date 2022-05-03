@@ -102,6 +102,7 @@ public class GravityPull : MonoBehaviour
         }
         else
         {
+            waypoints = bossController.GetCurrentPath();
             waypointIndex = 0;
         }
     }
