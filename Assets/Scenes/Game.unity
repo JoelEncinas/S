@@ -1240,6 +1240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveConfigs:
+  - {fileID: 11400000, guid: e9b8504825a544442b643bfae611d439, type: 2}
+  - {fileID: 11400000, guid: 0d3b94d16a778a04c9aa728048a659b2, type: 2}
   - {fileID: 11400000, guid: 7f9862c25f3f2a84ca64849c89c5788c, type: 2}
   timeBetweenWaves: 1
 --- !u!4 &1707543488
