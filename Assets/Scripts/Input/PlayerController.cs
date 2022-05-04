@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float paddingX = 0.5f;
     [SerializeField] float paddingY = 0.5f;
 
+    // sprites
+    [SerializeField] private bool ship2;
+    Sprite[] sprites = null;
+    Sprite ship2front;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -33,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
         isImmune = false;
         immuneTime = 5f;
+
+        ship2front = Resources.Load<Sprite>("Ship2_front");
     }
 
     private void Start()
