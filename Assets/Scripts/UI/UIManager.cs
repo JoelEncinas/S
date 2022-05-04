@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     Health playerHealth;
     List<Transform> healthObjects;
     Transform healthContainer;
-    Image warningImage;
+    GameObject warningImage;
 
     // Variables
     [SerializeField] private int health;
@@ -19,14 +19,12 @@ public class UIManager : MonoBehaviour
     {
         playerHealth = GameObject.Find("Player").GetComponent<Health>();
         healthContainer = GameObject.Find("HealthContainer").GetComponent<Transform>();
-        warningImage = GameObject.Find("Warning").GetComponent<Image>();
+        warningImage = GameObject.Find("Warning");
 
         health = playerHealth.GetHealth();
         counter = 1;
         healthObjects = new List<Transform>();
         GetHealthObjects();
-
-        FlashWarning();
     }
 
     private void GetHealthObjects()
@@ -49,15 +47,21 @@ public class UIManager : MonoBehaviour
         } 
     }
 
-     IEnumerator FlashWarning()
+     public IEnumerator FlashWarning()
     {
+        float animationTime = 4f;
         float fadeTime = 1f;
+        float animationCounter = 0;
 
-        warningImage.CrossFadeAlpha(0, fadeTime, false);
-        yield return new WaitForSeconds(fadeTime);
+        do
+        {
+            warningImage.GetComponent<Image>().CrossFadeAlpha(0, fadeTime, false);
+            yield return new WaitForSeconds(fadeTime);
 
-        warningImage.CrossFadeAlpha(1, fadeTime, false);
-        yield return new WaitForSeconds(fadeTime);
+            warningImage.GetComponent<Image>().CrossFadeAlpha(1, fadeTime, false);
+            yield return new WaitForSeconds(fadeTime);
+
+            animationCounter += 2f;
+        } while (animationCounter <= animationTime);
     }
 }
-
