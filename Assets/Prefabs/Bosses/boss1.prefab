@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 2326906529164801191}
   - component: {fileID: 2728564138374806445}
   - component: {fileID: 5399306996600224969}
+  - component: {fileID: -942109991390252279}
   m_Layer: 7
   m_Name: Boss1
   m_TagString: Untagged
@@ -795,6 +796,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-942109991390252279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784667961816100200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d508639ba9035f4099c19eda5bd424e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4055613398830414686
 GameObject:
   m_ObjectHideFlags: 0

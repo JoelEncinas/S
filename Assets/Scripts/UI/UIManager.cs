@@ -49,6 +49,8 @@ public class UIManager : MonoBehaviour
 
      public IEnumerator FlashWarning()
     {
+        warningImage.GetComponent<Image>().enabled = true;
+
         float animationTime = 4f;
         float fadeTime = 1f;
         float animationCounter = 0;
@@ -63,5 +65,8 @@ public class UIManager : MonoBehaviour
 
             animationCounter += 2f;
         } while (animationCounter <= animationTime);
+
+        warningImage.GetComponent<Image>().CrossFadeAlpha(0, fadeTime, false);
+        warningImage.GetComponent<Image>().enabled = false;
     }
 }
