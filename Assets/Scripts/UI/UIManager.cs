@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class UIManager : MonoBehaviour
     Health playerHealth;
     List<Transform> healthObjects;
     Transform healthContainer;
+    Image warningImage;
 
     // Variables
     [SerializeField] private int health;
@@ -17,11 +19,14 @@ public class UIManager : MonoBehaviour
     {
         playerHealth = GameObject.Find("Player").GetComponent<Health>();
         healthContainer = GameObject.Find("HealthContainer").GetComponent<Transform>();
+        warningImage = GameObject.Find("Warning").GetComponent<Image>();
 
         health = playerHealth.GetHealth();
         counter = 1;
         healthObjects = new List<Transform>();
         GetHealthObjects();
+
+        FlashWarning();
     }
 
     private void GetHealthObjects()
@@ -42,6 +47,17 @@ public class UIManager : MonoBehaviour
             healthObjects[health - counter].gameObject.SetActive(false);
             counter++;
         } 
+    }
+
+     IEnumerator FlashWarning()
+    {
+        float fadeTime = 1f;
+
+        warningImage.CrossFadeAlpha(0, fadeTime, false);
+        yield return new WaitForSeconds(fadeTime);
+
+        warningImage.CrossFadeAlpha(1, fadeTime, false);
+        yield return new WaitForSeconds(fadeTime);
     }
 }
 
