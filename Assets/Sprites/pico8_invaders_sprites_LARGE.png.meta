@@ -14,6 +14,12 @@ TextureImporter:
   - first:
       213: 8121229750694195928
     second: Warning
+  - first:
+      213: 7025747294087866806
+    second: alien1
+  - first:
+      213: 2348596287660107208
+    second: alien2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -206,6 +212,48 @@ TextureImporter:
       bones: []
       spriteID: 8d2367d1e6764b070800000000000000
       internalID: 8121229750694195928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: alien1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 120
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b9e4c1a0f7708160800000000000000
+      internalID: 7025747294087866806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: alien2
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 112
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c528c651e3e79020800000000000000
+      internalID: 2348596287660107208
       vertices: []
       indices: 
       edges: []
