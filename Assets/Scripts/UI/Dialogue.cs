@@ -24,7 +24,6 @@ public class Dialogue : MonoBehaviour
         midFrame = GameObject.Find("MessageWrapperMid").GetComponent<Image>();
         leftFrame = GameObject.Find("MessageWrapperLeft").GetComponent<Image>();
         rightFrame = GameObject.Find("MessageWrapperRight").GetComponent<Image>();
-        SetFrame("enemy");
 
         charactersFrame = new List<Transform>();
         GetAllCharacters();
@@ -33,8 +32,9 @@ public class Dialogue : MonoBehaviour
         text = DialogueDB.dialoguesDictionary["Mission01"];
         // TODO take text length to calc the yield time
         // TODO adapt for other characters
-        GetCharacterByName("Robot").GetComponent<SpriteRenderer>().enabled = true;
-        StartCoroutine(ShowText("Robot"));
+        SetFrame(SetNameByFaction(DialogueDB.AllyRaces.HUMAN.ToString()));
+        GetCharacterByName(DialogueDB.AllyRaces.HUMAN.ToString()).GetComponent<SpriteRenderer>().enabled = true;
+        StartCoroutine(ShowText(DialogueDB.AllyRaces.HUMAN.ToString()));
     }
 
     private void GetAllCharacters()
@@ -80,14 +80,22 @@ public class Dialogue : MonoBehaviour
 
     private string SetNameByFaction(string name)
     {
-        if (name.Contains("Human") ||
-            name.Contains("Human") )
+        if (name.Contains(DialogueDB.AllyRaces.HUMAN.ToString()) ||
+            name.Contains(DialogueDB.AllyRaces.MARTIAN.ToString()) ||
+            name.Contains(DialogueDB.AllyRaces.PRINCESS.ToString()) ||
+            name.Contains(DialogueDB.AllyRaces.ROBOT.ToString()) ||
+            name.Contains(DialogueDB.AllyRaces.WARRIOR.ToString()) ||
+            name.Contains(DialogueDB.AllyRaces.DROID.ToString()))
         {
-            return "allied";
+            return DialogueDB.Factions.ALLY.ToString();
         }
-        if (name.Contains("enemy"))
+        if (name.Contains(DialogueDB.EnemyRaces.ALIEN.ToString()) ||
+            name.Contains(DialogueDB.EnemyRaces.BUG.ToString()) ||
+            name.Contains(DialogueDB.EnemyRaces.CRAB.ToString()) ||
+            name.Contains(DialogueDB.EnemyRaces.MUTANT.ToString()) ||
+            name.Contains(DialogueDB.EnemyRaces.ORION.ToString()))
         {
-            return "enemy";
+            return DialogueDB.Factions.ENEMY.ToString();
         }
 
         return null;
@@ -95,13 +103,13 @@ public class Dialogue : MonoBehaviour
 
     private void SetFrame(string faction)
     {
-        if (faction.Contains("allied"))
+        if (faction.Contains(DialogueDB.Factions.ALLY.ToString()))
         {
             midFrame.sprite = framesList[0];
             leftFrame.sprite = framesList[1];
             rightFrame.sprite = framesList[2];
         }
-        if (faction.Contains("enemy"))
+        if (faction.Contains(DialogueDB.Factions.ENEMY.ToString()))
         {
             midFrame.sprite = framesList[3];
             leftFrame.sprite = framesList[4];

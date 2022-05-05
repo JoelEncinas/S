@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class DialogueDB 
 {
+    public enum Factions
+    {
+        ALLY,
+        ENEMY
+    }
+
     public enum AllyRaces {
         HUMAN,
         MARTIAN,
         PRINCESS,
         WARRIOR,
         ROBOT,
-        DROID
+        DROID,
+        BUG
     }
 
     public enum EnemyRaces
@@ -18,8 +25,7 @@ public class DialogueDB
         ALIEN,
         MUTANT,
         ORION,
-        CRAB,
-        BUG
+        CRAB
     }
 
     public readonly static Dictionary<string, string> dialoguesDictionary =
