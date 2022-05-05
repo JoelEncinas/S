@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Dialogue : MonoBehaviour
 {
     List<Transform> charactersFrame;
-    private float typeSpeed = 0.15f;
+    private float typeSpeed = 0.05f; // tiome between each character is typed (lower number = faster type)
     TextMeshProUGUI messageText;
     private string text;
     public bool isDone = true; // CHANGE TO ACTIVATE DIALOGUE
@@ -30,8 +30,6 @@ public class Dialogue : MonoBehaviour
         charactersFrame = new List<Transform>();
         GetAllCharacters();
         messageText = GetComponent<TextMeshProUGUI>();
-
-        ShowMessage("Get ready cadet!", DialogueDB.AllyRaces.HUMAN.ToString());
     }
 
     private void GetAllCharacters()
@@ -58,9 +56,29 @@ public class Dialogue : MonoBehaviour
         return gameObject.GetComponent<Animator>();
     }
 
-    IEnumerator ShowText(string name)
+    public float ShowMessage(string message, string name, bool hasToFadeOut)
     {
-        for(int i = 0; i < text.Length + 1; i++)
+        text = message;
+        SetFrame(SetNameByFaction(name));
+        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
+        StartCoroutine(ShowText(name, hasToFadeOut));
+
+        // calc stage flow
+        Debug.Log(CalculateTextTime(text.Length));
+        return CalculateTextTime(text.Length);
+    }
+
+    private float CalculateTextTime(int length)
+    {
+        return text.Length * typeSpeed + 2f;
+    }
+
+    IEnumerator ShowText(string name, bool hasToFadeOut)
+    {
+        GetCharacterAnimator(GetCharacterByName(name)).enabled = true;
+        GetCharacterAnimator(GetCharacterByName(name)).PlayInFixedTime(name, -1, 0f);
+
+        for (int i = 0; i < text.Length + 1; i++)
         {
             messageText.text = text.Substring(0, i);
             yield return new WaitForSeconds(typeSpeed);
@@ -71,12 +89,16 @@ public class Dialogue : MonoBehaviour
         GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
         GetCharacterAnimator(GetCharacterByName(name)).enabled = false;
 
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(FadeOutDialogue(name));
-        yield return new WaitForSeconds(1f);
-        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = false;
+        if(hasToFadeOut)
+        {
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(FadeOutDialogue(name));
+            yield return new WaitForSeconds(1f);
+            GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = false;
 
-        isDone = true;
+            isDone = true;
+            ResetFadeOut(name);
+        }
     }
 
     private string SetNameByFaction(string name)
@@ -118,14 +140,6 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    private void ShowMessage(string message, string name)
-    {
-        text = message;
-        SetFrame(SetNameByFaction(name));
-        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
-        StartCoroutine(ShowText(name));
-    }
-
     IEnumerator FadeOutDialogue(string name)
     {
         float counter = 0;
@@ -141,5 +155,11 @@ public class Dialogue : MonoBehaviour
             counter += 0.2f;
 
         } while (counter < animationTime);
+    }
+
+    private void ResetFadeOut(string name)
+    {
+        canvasGroup.alpha = 1;
+        GetCharacterByName(name).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 }

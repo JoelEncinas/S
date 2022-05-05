@@ -33,6 +33,27 @@ public class UIManager : MonoBehaviour
         GetHealthObjects();
     }
 
+    private IEnumerator Start()
+    {
+        dialogueManager.ShowMessage(DialogueDB.tutorial["Part1"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
+        yield return new WaitForSeconds
+            (dialogueManager.ShowMessage(DialogueDB.tutorial["Part1"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
+
+        dialogueManager.ShowMessage(DialogueDB.tutorial["Part2"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
+        yield return new WaitForSeconds(
+            dialogueManager.ShowMessage(DialogueDB.tutorial["Part2"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
+
+        dialogueManager.ShowMessage(DialogueDB.tutorial["Part3"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
+        yield return new WaitForSeconds(
+            dialogueManager.ShowMessage(DialogueDB.tutorial["Part3"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
+
+        dialogueManager.ShowMessage(DialogueDB.tutorial["Part4"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
+        yield return new WaitForSeconds(
+            dialogueManager.ShowMessage(DialogueDB.tutorial["Part4"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
+
+        // 25f then spawn enemy
+    }
+
     private void Update()
     {
         if (dialogueManager.isDone)
