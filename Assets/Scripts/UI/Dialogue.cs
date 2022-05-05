@@ -11,6 +11,7 @@ public class Dialogue : MonoBehaviour
     TextMeshProUGUI messageText;
     private string text;
     public bool isDone = true; // CHANGE TO ACTIVATE DIALOGUE
+    CanvasGroup canvasGroup;
 
     // text frames
     [SerializeField] private List<Sprite> framesList;
@@ -24,17 +25,13 @@ public class Dialogue : MonoBehaviour
         midFrame = GameObject.Find("MessageWrapperMid").GetComponent<Image>();
         leftFrame = GameObject.Find("MessageWrapperLeft").GetComponent<Image>();
         rightFrame = GameObject.Find("MessageWrapperRight").GetComponent<Image>();
+        canvasGroup = midFrame.GetComponent<CanvasGroup>();
 
         charactersFrame = new List<Transform>();
         GetAllCharacters();
         messageText = GetComponent<TextMeshProUGUI>();
 
-        text = DialogueDB.dialoguesDictionary["Mission01"];
-        // TODO take text length to calc the yield time
-        // TODO adapt for other characters
-        SetFrame(SetNameByFaction(DialogueDB.AllyRaces.HUMAN.ToString()));
-        GetCharacterByName(DialogueDB.AllyRaces.HUMAN.ToString()).GetComponent<SpriteRenderer>().enabled = true;
-        StartCoroutine(ShowText(DialogueDB.AllyRaces.HUMAN.ToString()));
+        ShowMessage("Get ready cadet!", DialogueDB.AllyRaces.HUMAN.ToString());
     }
 
     private void GetAllCharacters()
@@ -74,7 +71,11 @@ public class Dialogue : MonoBehaviour
         GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
         GetCharacterAnimator(GetCharacterByName(name)).enabled = false;
 
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(FadeOutDialogue(name));
         yield return new WaitForSeconds(1f);
+        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = false;
+
         isDone = true;
     }
 
@@ -115,5 +116,30 @@ public class Dialogue : MonoBehaviour
             leftFrame.sprite = framesList[4];
             rightFrame.sprite = framesList[5];
         }
+    }
+
+    private void ShowMessage(string message, string name)
+    {
+        text = message;
+        SetFrame(SetNameByFaction(name));
+        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
+        StartCoroutine(ShowText(name));
+    }
+
+    IEnumerator FadeOutDialogue(string name)
+    {
+        float counter = 0;
+        float animationTime = 1f;
+        float alphaValue = 1;
+
+        do
+        {
+            canvasGroup.alpha = alphaValue;
+            GetCharacterByName(name).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alphaValue);
+            yield return new WaitForSeconds(0.2f);
+            alphaValue -= 0.2f;
+            counter += 0.2f;
+
+        } while (counter < animationTime);
     }
 }

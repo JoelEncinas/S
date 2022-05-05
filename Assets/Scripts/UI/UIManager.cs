@@ -84,4 +84,16 @@ public class UIManager : MonoBehaviour
         warningImage.GetComponent<Image>().CrossFadeAlpha(0, fadeTime, false);
         warningImage.GetComponent<Image>().enabled = false;
     }
+
+    public Dictionary<string, string> GetMissionInfo(string sceneName)
+    {
+        // gets scene name and loads mission info
+        foreach(KeyValuePair<string, Dictionary<string, string>> mission in DialogueDB.missionsDictionary)
+        {
+            if (mission.Key.Contains(sceneName))
+                return mission.Value;
+        }
+
+        return null;
+    }
 }
