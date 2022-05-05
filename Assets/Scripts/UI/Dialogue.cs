@@ -85,12 +85,12 @@ public class Dialogue : MonoBehaviour
             name.Contains(DialogueDB.AllyRaces.PRINCESS.ToString()) ||
             name.Contains(DialogueDB.AllyRaces.ROBOT.ToString()) ||
             name.Contains(DialogueDB.AllyRaces.WARRIOR.ToString()) ||
-            name.Contains(DialogueDB.AllyRaces.DROID.ToString()))
+            name.Contains(DialogueDB.AllyRaces.DROID.ToString()) ||
+            name.Contains(DialogueDB.AllyRaces.BUG.ToString()))
         {
             return DialogueDB.Factions.ALLY.ToString();
         }
         if (name.Contains(DialogueDB.EnemyRaces.ALIEN.ToString()) ||
-            name.Contains(DialogueDB.EnemyRaces.BUG.ToString()) ||
             name.Contains(DialogueDB.EnemyRaces.CRAB.ToString()) ||
             name.Contains(DialogueDB.EnemyRaces.MUTANT.ToString()) ||
             name.Contains(DialogueDB.EnemyRaces.ORION.ToString()))
