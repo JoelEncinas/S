@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Dialogue : MonoBehaviour
 {
     List<Transform> charactersFrame;
+    private float typeSpeed = 0.15f;
+    TextMeshProUGUI messageText;
+    private string text;
 
     private void Awake()
     {
         charactersFrame = new List<Transform>();
         GetAllCharacters();
+        messageText = GetComponent<TextMeshProUGUI>();
 
+        text = DialogueDB.dialoguesDictionary["Mission1"];
         GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = true;
+        StartCoroutine(ShowText());
     }
 
     private void GetAllCharacters()
@@ -31,5 +38,22 @@ public class Dialogue : MonoBehaviour
         }
 
         return null;
+    }
+
+    private Animator GetCharacterAnimator(Transform gameObject)
+    {
+        return gameObject.GetComponent<Animator>();
+    }
+
+    IEnumerator ShowText()
+    {
+        for(int i = 0; i < text.Length + 1; i++)
+        {
+            messageText.text = text.Substring(0, i);
+            yield return new WaitForSeconds(typeSpeed);
+        }
+
+        GetCharacterAnimator(GetCharacterByName("Human")).PlayInFixedTime("Human", 1, 0f);
+        GetCharacterAnimator(GetCharacterByName("Human")).enabled = false;
     }
 }

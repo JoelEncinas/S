@@ -397,7 +397,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7054297649959912669, guid: aa43051d4eac6024e91017eee4d4d792, type: 3}
+  m_Sprite: {fileID: 5699103422929861217, guid: aa43051d4eac6024e91017eee4d4d792, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -432,8 +432,8 @@ GameObject:
   m_Component:
   - component: {fileID: 384763045}
   - component: {fileID: 384763047}
-  - component: {fileID: 384763046}
   - component: {fileID: 384763048}
+  - component: {fileID: 384763046}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Be carefoul commander. Sector X23-F has been attacked recently.
+  m_text: Lorem ipsum
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9afd5a22dc4671641ae3139f840c3e04, type: 2}
   m_sharedMaterial: {fileID: 8509051633379358799, guid: 9afd5a22dc4671641ae3139f840c3e04, type: 2}
@@ -1566,10 +1566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f602538c99d3d4da471b7b3f2c200a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveConfigs:
-  - {fileID: 11400000, guid: e9b8504825a544442b643bfae611d439, type: 2}
-  - {fileID: 11400000, guid: 0d3b94d16a778a04c9aa728048a659b2, type: 2}
-  - {fileID: 11400000, guid: 7f9862c25f3f2a84ca64849c89c5788c, type: 2}
+  waveConfigs: []
   timeBetweenWaves: 1
 --- !u!4 &1707543488
 Transform:
