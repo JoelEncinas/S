@@ -8,9 +8,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float timeBetweenWaves = 3f;
     WaveConfigSO currentWave;
     bool isLooping = false;
+    float introTimer = 5f;
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitForSeconds(introTimer);
+
         StartCoroutine(SpawnEnemyWaves());
     }
 

@@ -16,7 +16,7 @@ public class ProjectileManager : MonoBehaviour
     IEnumerator Start()
     {
         playerTransform = GetComponent<Transform>();
-        yield return new WaitForSeconds(fireRate);
+        yield return new WaitForSeconds(5f);
 
         AutoShoot();
     }
