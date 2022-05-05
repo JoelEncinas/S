@@ -7,7 +7,7 @@ TextureImporter:
     second: EnemyFrameMid
   - first:
       213: -7258982193374419196
-    second: EnemyFrameLeft
+    second: EnemyFrameMid
   - first:
       213: 4888668457609010390
     second: EnemyFrameRight
@@ -139,27 +139,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnemyFrameMid
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 96
-        width: 12
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d470068b8f9c410d0800000000000000
-      internalID: -3452912944203954355
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: EnemyFrameLeft
       rect:
         serializedVersion: 2
@@ -168,35 +147,14 @@ TextureImporter:
         width: 2
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4072805a72ae24b90800000000000000
-      internalID: -7258982193374419196
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EnemyFrameRight
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 96
-        width: 2
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6dc11789f0a08d340800000000000000
-      internalID: 4888668457609010390
+      spriteID: d470068b8f9c410d0800000000000000
+      internalID: -3452912944203954355
       vertices: []
       indices: 
       edges: []
@@ -273,7 +231,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,7 +252,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -302,6 +260,48 @@ TextureImporter:
       bones: []
       spriteID: 6f89bc4105ac69910800000000000000
       internalID: 1843883542749878518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemyFrameMid
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 96
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4072805a72ae24b90800000000000000
+      internalID: -7258982193374419196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemyFrameRight
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 96
+        width: 2
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dc11789f0a08d340800000000000000
+      internalID: 4888668457609010390
       vertices: []
       indices: 
       edges: []

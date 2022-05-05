@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
@@ -11,8 +12,20 @@ public class Dialogue : MonoBehaviour
     private string text;
     public bool isDone = false;
 
+    // text frames
+    [SerializeField] private List<Sprite> framesList;
+    Image midFrame;
+    Image leftFrame;
+    Image rightFrame;
+
     private void Awake()
     {
+        // text frames
+        midFrame = GameObject.Find("MessageWrapperMid").GetComponent<Image>();
+        leftFrame = GameObject.Find("MessageWrapperLeft").GetComponent<Image>();
+        rightFrame = GameObject.Find("MessageWrapperRight").GetComponent<Image>();
+        SetFrame("enemy");
+
         charactersFrame = new List<Transform>();
         GetAllCharacters();
         messageText = GetComponent<TextMeshProUGUI>();
@@ -21,8 +34,8 @@ public class Dialogue : MonoBehaviour
         // TODO take text length to calc the yield time
         Debug.Log(text.Length);
         // TODO adapt for other characters
-        GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = true;
-        StartCoroutine(ShowText());
+        GetCharacterByName("Robot").GetComponent<SpriteRenderer>().enabled = true;
+        StartCoroutine(ShowText("Robot"));
     }
 
     private void GetAllCharacters()
@@ -49,7 +62,7 @@ public class Dialogue : MonoBehaviour
         return gameObject.GetComponent<Animator>();
     }
 
-    IEnumerator ShowText()
+    IEnumerator ShowText(string name)
     {
         for(int i = 0; i < text.Length + 1; i++)
         {
@@ -57,11 +70,28 @@ public class Dialogue : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = false;
-        GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = true;
-        GetCharacterAnimator(GetCharacterByName("Human")).enabled = false;
+        GetCharacterAnimator(GetCharacterByName(name)).PlayInFixedTime(name, -1, 0f);
+        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = false;
+        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
+        GetCharacterAnimator(GetCharacterByName(name)).enabled = false;
 
         yield return new WaitForSeconds(1f);
         isDone = true;
+    }
+
+    private void SetFrame(string faction)
+    {
+        if (faction.Contains("allied"))
+        {
+            midFrame.sprite = framesList[0];
+            leftFrame.sprite = framesList[1];
+            rightFrame.sprite = framesList[2];
+        }
+        if (faction.Contains("enemy"))
+        {
+            midFrame.sprite = framesList[3];
+            leftFrame.sprite = framesList[4];
+            rightFrame.sprite = framesList[5];
+        }
     }
 }

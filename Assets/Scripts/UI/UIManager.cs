@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
         playerHealth = GameObject.Find("Player").GetComponent<Health>();
         healthContainer = GameObject.Find("HealthContainer").GetComponent<Transform>();
         warningImage = GameObject.Find("Warning");
-        dialogueWindow = GameObject.Find("AllyMessageWrapper");
+        dialogueWindow = GameObject.Find("MessageWrapperMid");
         dialogueManager = GameObject.Find("Message").GetComponent<Dialogue>();
 
         health = playerHealth.GetHealth();
