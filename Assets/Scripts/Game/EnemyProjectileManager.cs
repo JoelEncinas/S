@@ -33,7 +33,7 @@ public class EnemyProjectileManager : MonoBehaviour
 
     IEnumerator IEAutoShoot()
     {
-        projectile = ObjectPool.sharedInstance.GetPooledObject(projectilePool);
+        projectile = ObjectPool.sharedInstance.GetPooledObject(projectilePool); 
         if (projectile != null)
         {
             projectile.transform.position = shootPosition;
