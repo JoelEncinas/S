@@ -16,7 +16,7 @@ public class Dialogue : MonoBehaviour
         GetAllCharacters();
         messageText = GetComponent<TextMeshProUGUI>();
 
-        text = DialogueDB.dialoguesDictionary["Mission1"];
+        text = DialogueDB.dialoguesDictionary["Mission01"];
         GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = true;
         StartCoroutine(ShowText());
     }
@@ -53,7 +53,7 @@ public class Dialogue : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        GetCharacterAnimator(GetCharacterByName("Human")).PlayInFixedTime("Human", 1, 0f);
+        GetCharacterAnimator(GetCharacterByName("Human")).Play("Human", -1, 0f);
         GetCharacterAnimator(GetCharacterByName("Human")).enabled = false;
     }
 }
