@@ -303,4 +303,5 @@ MonoBehaviour:
   shootPosition: {x: 0, y: 0, z: 0}
   shootPositionOffset: {x: 0, y: 1, z: 0}
   fireRate: 0.5
+  shootTimer: 5
   projectile: {fileID: 0}

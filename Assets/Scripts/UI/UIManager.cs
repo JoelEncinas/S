@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     List<Transform> healthObjects;
     Transform healthContainer;
     GameObject warningImage;
+    LevelManager levelManager;
 
     // Variables
     [SerializeField] private int health;
@@ -26,32 +27,12 @@ public class UIManager : MonoBehaviour
         warningImage = GameObject.Find("Warning");
         dialogueWindow = GameObject.Find("MessageWrapperMid");
         dialogueManager = GameObject.Find("Message").GetComponent<Dialogue>();
+        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
         health = playerHealth.GetHealth();
         counter = 1;
         healthObjects = new List<Transform>();
         GetHealthObjects();
-    }
-
-    private IEnumerator Start()
-    {
-        dialogueManager.ShowMessage(DialogueDB.tutorial["Part1"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
-        yield return new WaitForSeconds
-            (dialogueManager.ShowMessage(DialogueDB.tutorial["Part1"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
-
-        dialogueManager.ShowMessage(DialogueDB.tutorial["Part2"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
-        yield return new WaitForSeconds(
-            dialogueManager.ShowMessage(DialogueDB.tutorial["Part2"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
-
-        dialogueManager.ShowMessage(DialogueDB.tutorial["Part3"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
-        yield return new WaitForSeconds(
-            dialogueManager.ShowMessage(DialogueDB.tutorial["Part3"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
-
-        dialogueManager.ShowMessage(DialogueDB.tutorial["Part4"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
-        yield return new WaitForSeconds(
-            dialogueManager.ShowMessage(DialogueDB.tutorial["Part4"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
-
-        // 25f then spawn enemy
     }
 
     private void Update()

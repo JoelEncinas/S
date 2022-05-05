@@ -40,7 +40,9 @@ public class DialogueDB
             {"Part1", "Welcome to the trainning program cadet. Here you will learn the basic protocols in order to survive out there."},
             {"Part2", "You can steer the spaceship with AWSD keys. Try it out!"},
             {"Part3", "The main cannon is completely automatic so you don't have to worry too much about that."},
-            {"Part4", "Enough talking! Let's see how skilled you are! Watch out!"}
+            {"Part4", "Enough talking! Let's see how skilled you are! Watch out!"},
+            {"Part5", "Dammit cadet! If you were trying to kill yourself, Good job!"},
+            {"Part6", "Good job, those were some nice moves for a rookie soldier!"}
         };
 
     public readonly static Dictionary<string, Dictionary<string, string>> missionsDictionary =

@@ -12,6 +12,7 @@ public class Dialogue : MonoBehaviour
     private string text;
     public bool isDone = true; // CHANGE TO ACTIVATE DIALOGUE
     CanvasGroup canvasGroup;
+    private Sprite firstFrameName;
 
     // text frames
     [SerializeField] private List<Sprite> framesList;
@@ -27,6 +28,7 @@ public class Dialogue : MonoBehaviour
         rightFrame = GameObject.Find("MessageWrapperRight").GetComponent<Image>();
         canvasGroup = midFrame.GetComponent<CanvasGroup>();
 
+        FadeOut();
         charactersFrame = new List<Transform>();
         GetAllCharacters();
         messageText = GetComponent<TextMeshProUGUI>();
@@ -58,9 +60,12 @@ public class Dialogue : MonoBehaviour
 
     public float ShowMessage(string message, string name, bool hasToFadeOut)
     {
+        FadeIn();
         text = message;
         SetFrame(SetNameByFaction(name));
+        firstFrameName = GetCharacterByName(name).GetComponent<SpriteRenderer>().sprite;
         GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
+        midFrame.gameObject.SetActive(true);
         StartCoroutine(ShowText(name, hasToFadeOut));
 
         // calc stage flow
@@ -76,7 +81,6 @@ public class Dialogue : MonoBehaviour
     IEnumerator ShowText(string name, bool hasToFadeOut)
     {
         GetCharacterAnimator(GetCharacterByName(name)).enabled = true;
-        GetCharacterAnimator(GetCharacterByName(name)).PlayInFixedTime(name, -1, 0f);
 
         for (int i = 0; i < text.Length + 1; i++)
         {
@@ -84,9 +88,7 @@ public class Dialogue : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        GetCharacterAnimator(GetCharacterByName(name)).PlayInFixedTime(name, -1, 0f);
-        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = false;
-        GetCharacterByName(name).GetComponent<SpriteRenderer>().enabled = true;
+        GetCharacterByName(name).GetComponent<SpriteRenderer>().sprite = firstFrameName;
         GetCharacterAnimator(GetCharacterByName(name)).enabled = false;
 
         if(hasToFadeOut)
@@ -161,5 +163,15 @@ public class Dialogue : MonoBehaviour
     {
         canvasGroup.alpha = 1;
         GetCharacterByName(name).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+    }
+
+    private void FadeOut()
+    {
+        canvasGroup.alpha = 0;
+    }
+
+    private void FadeIn()
+    {
+        canvasGroup.alpha = 1;
     }
 }
