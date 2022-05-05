@@ -10,7 +10,7 @@ public class Dialogue : MonoBehaviour
     private float typeSpeed = 0.15f;
     TextMeshProUGUI messageText;
     private string text;
-    public bool isDone = false;
+    public bool isDone = true; // CHANGE TO ACTIVATE DIALOGUE
 
     // text frames
     [SerializeField] private List<Sprite> framesList;
@@ -32,7 +32,6 @@ public class Dialogue : MonoBehaviour
 
         text = DialogueDB.dialoguesDictionary["Mission01"];
         // TODO take text length to calc the yield time
-        Debug.Log(text.Length);
         // TODO adapt for other characters
         GetCharacterByName("Robot").GetComponent<SpriteRenderer>().enabled = true;
         StartCoroutine(ShowText("Robot"));
@@ -77,6 +76,21 @@ public class Dialogue : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         isDone = true;
+    }
+
+    private string SetNameByFaction(string name)
+    {
+        if (name.Contains("Human") ||
+            name.Contains("Human") )
+        {
+            return "allied";
+        }
+        if (name.Contains("enemy"))
+        {
+            return "enemy";
+        }
+
+        return null;
     }
 
     private void SetFrame(string faction)

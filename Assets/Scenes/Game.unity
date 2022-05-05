@@ -539,7 +539,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &353210398
@@ -705,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fc010ccbc974744880a72f6f57c84f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDone: 0
+  isDone: 1
   framesList:
   - {fileID: 4642847126731458489, guid: abaa989a24fced74791fda60ffd3850b, type: 3}
   - {fileID: 8965784993433089314, guid: abaa989a24fced74791fda60ffd3850b, type: 3}
@@ -2414,10 +2414,6 @@ PrefabInstance:
     - target: {fileID: 5890180583671949989, guid: a2b2b05134f5b6747a92291f85bd120f, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890180583671949989, guid: a2b2b05134f5b6747a92291f85bd120f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5890180583671949991, guid: a2b2b05134f5b6747a92291f85bd120f, type: 3}
       propertyPath: m_RootOrder
