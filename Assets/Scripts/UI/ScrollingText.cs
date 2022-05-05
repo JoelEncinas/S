@@ -6,7 +6,8 @@ using TMPro;
 public class ScrollingText : MonoBehaviour
 {
     public TextMeshProUGUI text;
-    public float scrollSpeed = 5f;
+    public TextMeshProUGUI title;
+    public float scrollSpeed = 3f;
 
     private TextMeshProUGUI cloneText;
     private RectTransform textRectTransform;
@@ -16,10 +17,14 @@ public class ScrollingText : MonoBehaviour
     void Awake()
     {
         // messages db
+        // TODO get messages from dialogue db
         message = new List<string>
         {
-            " Mission 01 - Reconnaissance and Surveillance of Sector X23-F. ",
+            " Reconnaissance and Surveillance of Sector X23-F. ",
         };
+
+        title = GameObject.Find("MissionTitle").GetComponent<TextMeshProUGUI>();
+        title.text = "Mission 01";
 
         text.text = message[Random.Range(0, message.Count)];
         textRectTransform = text.GetComponent<RectTransform>();

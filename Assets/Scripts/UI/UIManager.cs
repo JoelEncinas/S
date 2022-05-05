@@ -15,16 +15,31 @@ public class UIManager : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private int counter;
 
+    // Dialogue window
+    GameObject dialogueWindow;
+    Dialogue dialogueManager;
+
     void Awake()
     {
         playerHealth = GameObject.Find("Player").GetComponent<Health>();
         healthContainer = GameObject.Find("HealthContainer").GetComponent<Transform>();
         warningImage = GameObject.Find("Warning");
+        dialogueWindow = GameObject.Find("AllyMessageWrapper");
+        dialogueManager = GameObject.Find("Message").GetComponent<Dialogue>();
 
         health = playerHealth.GetHealth();
         counter = 1;
         healthObjects = new List<Transform>();
         GetHealthObjects();
+    }
+
+    private void Update()
+    {
+        if (dialogueManager.isDone)
+        {
+            dialogueWindow.SetActive(false);
+            dialogueManager.isDone = false;
+        }
     }
 
     private void GetHealthObjects()

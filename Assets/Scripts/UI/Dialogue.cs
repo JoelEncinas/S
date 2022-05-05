@@ -9,6 +9,7 @@ public class Dialogue : MonoBehaviour
     private float typeSpeed = 0.15f;
     TextMeshProUGUI messageText;
     private string text;
+    public bool isDone = false;
 
     private void Awake()
     {
@@ -17,6 +18,9 @@ public class Dialogue : MonoBehaviour
         messageText = GetComponent<TextMeshProUGUI>();
 
         text = DialogueDB.dialoguesDictionary["Mission01"];
+        // TODO take text length to calc the yield time
+        Debug.Log(text.Length);
+        // TODO adapt for other characters
         GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = true;
         StartCoroutine(ShowText());
     }
@@ -53,7 +57,11 @@ public class Dialogue : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        GetCharacterAnimator(GetCharacterByName("Human")).Play("Human", -1, 0f);
+        GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = false;
+        GetCharacterByName("Human").GetComponent<SpriteRenderer>().enabled = true;
         GetCharacterAnimator(GetCharacterByName("Human")).enabled = false;
+
+        yield return new WaitForSeconds(1f);
+        isDone = true;
     }
 }
