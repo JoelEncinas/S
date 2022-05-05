@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private BoxCollider2D boxCollider2D;
     private SpriteRenderer spriteRenderer;
+    private SpriteRenderer propulsorSpriteRenderer;
+    private SpriteRenderer propulsorSpriteRenderer2;
 
     // scripts
     private ProjectileManager projectileManager;
@@ -30,6 +32,9 @@ public class PlayerController : MonoBehaviour
         projectileManager = GetComponent<ProjectileManager>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        propulsorSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        if(transform.childCount > 1)
+            propulsorSpriteRenderer2 = transform.GetChild(1).GetComponent<SpriteRenderer>();
 
         isImmune = false;
         immuneTime = 5f;
@@ -107,8 +112,14 @@ public class PlayerController : MonoBehaviour
         do
         {
             spriteRenderer.color = new Color32(255, 255, 255, 100);
+            propulsorSpriteRenderer.color = new Color32(255, 255, 255, 100);
+            if (transform.childCount > 1)
+                propulsorSpriteRenderer2.color = new Color32(255, 255, 255, 100);
             yield return new WaitForSeconds(0.25f);
             spriteRenderer.color = new Color32(255, 255, 255, 255);
+            propulsorSpriteRenderer.color = new Color32(255, 255, 255, 255);
+            if (transform.childCount > 1)
+                propulsorSpriteRenderer2.color = new Color32(255, 255, 255, 255);
             yield return new WaitForSeconds(0.25f);
             timer += 0.5f;
         } while (timer <= immuneTime);
