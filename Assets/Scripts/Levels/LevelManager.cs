@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -19,6 +20,18 @@ public class LevelManager : MonoBehaviour
     }
 
     private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0f);
+        if(SceneManager.GetActiveScene().name.Contains("Mission00"))
+            StartCoroutine(Tutorial());
+    }
+
+    private void Update()
+    {
+        health = playerHealth.GetHealth();
+    }
+
+    IEnumerator Tutorial()
     {
         yield return new WaitForSeconds(2f);
 
@@ -44,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(10f);
 
-        if(health < 3)
+        if (health < 3)
         {
             counter += dialogueManager.ShowMessage(DialogueDB.tutorial["Part5"], DialogueDB.AllyRaces.HUMAN.ToString(), false);
             yield return new WaitForSeconds(
@@ -56,10 +69,5 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(
                 dialogueManager.ShowMessage(DialogueDB.tutorial["Part6"], DialogueDB.AllyRaces.HUMAN.ToString(), false));
         }
-    }
-
-    private void Update()
-    {
-        health = playerHealth.GetHealth();
     }
 }
